@@ -1,9 +1,10 @@
 import dns from "node:dns";
+import mongoose from "mongoose";
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 
-import mongoose from "mongoose";
+
 
 const MONGODB_URI=process.env.MONGODB_URI;
 if(!MONGODB_URI){
