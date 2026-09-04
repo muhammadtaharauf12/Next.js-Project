@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
@@ -27,4 +28,14 @@ export async function getSession(){
     headers:await headers()
   });
   return result;
+}
+
+export async function signOut(){
+  const result = await auth.api.signOut({
+    headers:await headers()
+  });
+  if(result.success){
+    redirect('/sign-in');
+
+  }
 }
