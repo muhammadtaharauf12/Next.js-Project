@@ -2,6 +2,7 @@ import { getSession } from "@/lib/auth/auth"
 import connectDB from "@/lib/db";
 import { Board } from "@/lib/models";
 import { redirect } from "next/navigation";
+import KanbanBoard from "@/components/kanbanboard";
 
 export default async function Dashboard(){
 
@@ -19,6 +20,8 @@ console.log("SESSION USER ID:", session.user.id);
 
 const board = await Board.findOne({
     userId: session.user.id,
+}).lean().populate({
+    path:"columns"
 });
 
 console.log("BOARD:", board);
@@ -35,6 +38,8 @@ console.log("BOARD:", board);
                     Track your job applications
                 </p>
             </div>
+            <KanbanBoard board={JSON.parse(JSON.stringify(board))}
+      userId={session.user.id}/>
 
         </div>
     </div>

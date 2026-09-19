@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { createDefaultBoard } from "@/lib/createDefaultBoard";
+import connectDB from "@/lib/db";
 
 export async function POST(req: Request) {
     try {
+        await connectDB()
         const { userId } = await req.json();
 
         if (!userId) {
